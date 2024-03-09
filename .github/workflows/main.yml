@@ -1,0 +1,30 @@
+name: Deploy to Azure WebApp
+
+on:
+  push:
+    branches:
+      - master  # 指定触发部署的分支，可能是main、master或你的特定分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # 指定GitHub Action运行的环境
+
+    steps:
+    - uses: actions/checkout@v2  # 检出你的仓库代码
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # 设置与你的Azure Web App相匹配的Python版本
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # 安装requirements.txt中列出的依赖
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'SunProtection'  # 你的Azure Web App名称
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # 你的Azure发布配置文件的密钥
+        package: .
