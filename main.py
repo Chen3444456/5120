@@ -28,7 +28,7 @@ def main():
     if st.session_state.current_page == 'home':
         show_main_page()
     elif st.session_state.current_page == 'view_uv_level_locations':
-        view_uv_level_locations.show_interface()
+        view_uv_level_locations.view_uv_level_main()
     elif st.session_state.current_page == 'us_clothes_protection':
         us_clothes_protection.show_interface()
     elif st.session_state.current_page == 'uv_data_impacts':
